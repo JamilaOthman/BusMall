@@ -42,6 +42,7 @@ var MidImg = document.getElementById('MiddleProduct');
 var rightImg = document.getElementById('RightProducte');
 var productbox= document.getElementById('productbox');
 var showResultButton=document.getElementById('final-result');
+var userInput=document.getElementById('form')
 
 var leftImgIndex;
 var MidImgIndex;
@@ -71,7 +72,8 @@ Product.prototype.allProduct[rightImgIndex].view++
 renderThreeRandImg();
 
 productbox.addEventListener('click',clickByUser);
-resultButton.addEventListener('click',showResult);
+showResultButton.addEventListener('click',showResult);
+userInput.addEventListener('click',numOfRound);
 
 function clickByUser(event) {
 
@@ -108,4 +110,9 @@ var resultList=document.getElementById('final-results');
     }
 
     
+}
+
+function numOfRound(event) {
+    event.preventDefault();
+    maxClick=event.target.rounds.value;
 }
