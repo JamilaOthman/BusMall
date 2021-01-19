@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="style.css">
+
+<body>
+  <header>
+    <h1 class="h1">BusMall Market Research </h1>
+    <p class="p">Hello , thank you for your time . We will show you a set of three products at a time in your browser for a certain number of rounds.  In each set of products, please click on the product you would be most likely to purchase.  Please keep in mind to answer honestly as your results and feedback will have an influence on which products could eventually be available for sale in the BusMall catalog. Thank you!</p>
+    <form action="">
+      <label for="rounds">choose number of rounds</label>
+      <input name="rounds" id="rounds" type="number">
+      <input type="submit" value="set rounds">
+  </form>
+</header>
+<main>
+    <div class="productbox">
+      <div id="imageTitle">Which of these product do you prefer?</div>
+      <div class="imageContainer" id="productbox">
+        <div id="imageGroupContainer">
+          <img class="imageGroup" id="LeftProduct" src="" alt="" title="" />
+          <img class="imageGroup" id="MiddleProduct" src="" alt="" title="" />
+          <img class="imageGroup" id="RightProducte" src="" alt="" title="" />
+        </div>
+      </div>
+    </div>
+    <ul id="final-results"> </ul>
+    <input type="submit" id="final-result" name="final-results" value="showResult">
+  </main>
+  <div class="list" id="listOfData"></div>
+  
+</body>
+
+<script src="app.js"></script>
+
+</html>
