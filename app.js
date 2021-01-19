@@ -73,7 +73,7 @@ renderThreeRandImg();
 
 productbox.addEventListener('click',clickByUser);
 showResultButton.addEventListener('click',showResult);
-userInput.addEventListener('click',numOfRound);
+userInput.addEventListener('submit',numOfRound);
 
 function clickByUser(event) {
 
@@ -84,7 +84,7 @@ function clickByUser(event) {
             Product.prototype.allProduct[leftImgIndex].vote++;
             renderThreeRandImg();
         }
-    }else if(event.target.id==='MiddleProduct'){
+    else if(event.target.id==='MiddleProduct'){
         Product.prototype.allProduct[MidImgIndex].vote++;
         renderThreeRandImg();
     }else if(event.target.id==='RightProducte'){
@@ -96,7 +96,7 @@ function clickByUser(event) {
     
     productbox.removeEventListener('click',clickByUser);
     showResultButton.disabled=false;
-
+    }
 }
 }
 function showResult() {
