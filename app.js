@@ -1,5 +1,5 @@
 'use strict'
-function Product(name ,source){
+function Product(name ,source) {
     this.name = name;
     this.source = source;
     this.vote = 0;
@@ -31,9 +31,8 @@ new Product('water-can','img/water-can.jpg');
 new Product('wine-glass','img/wine-glass.jpg');
 
 function randNumGenerator() {
-    var x= Math.floor(Math.random()*Product.prototype.allProduct.length);
- console.log(x)
-    return x
+    return  Math.floor(Math.random()*Product.prototype.allProduct.length);
+
 
 }
 
@@ -52,6 +51,8 @@ var MidImgIndex;
 var rightImgIndex;
 var maxClick= 25;
 var userClickCounter=0;
+var names = [];
+
 
 
 function renderThreeRandImg() {
@@ -84,10 +85,15 @@ perviousMiddleImageIndex= MidImgIndex
 
   
 leftImg.src=Product.prototype.allProduct[leftImgIndex].source;
+
 Product.prototype.allProduct[leftImgIndex].view++
+
 MidImg.src=Product.prototype.allProduct[MidImgIndex].source;
+
 Product.prototype.allProduct[MidImgIndex].view++
+
 rightImg.src=Product.prototype.allProduct[rightImgIndex].source;
+
 Product.prototype.allProduct[rightImgIndex].view++
 }
 renderThreeRandImg();
@@ -96,9 +102,10 @@ productbox.addEventListener('click',clickByUser);
 showResultButton.addEventListener('click',showResult);
 userInput.addEventListener('submit',numOfRound);
 
-function clickByUser(event) {
 
+function clickByUser(event) {
     userClickCounter++;
+    
     if(userClickCounter <= maxClick){
         if(event.target.id==='LeftProduct'){
             userClickCounter++;
@@ -175,7 +182,6 @@ function numOfRound(event) {
             ]
             },
     
-            // Configuration options go here
             options: {
                 scales: {
                     yAxes: [{
@@ -194,4 +200,26 @@ function numOfRound(event) {
     
     
     }
+    for (var i = 0; i < Product.prototype.allProduct.length; i++) {
+        names.push(Product.prototype.allProduct[i].name);
+    }
+    
+    
+    function productStorage (){
+        var localStorage =JSON.stringify(Product.prototype.allProduct);
+        localStorage.setItem('product',localProduct);
+    }
+    
+
+    function getTheData (){
+        var ProductList =localStorage.getItem('product');
+        var jsProductList = JSON.parse(ProductList);
+    
+        if(jsProductList != null )
+        Products.prototype.allProducts = jsProductList ;
+    
+        console.log(jsProductList);
+    }
+    getTheData();
+    
     
