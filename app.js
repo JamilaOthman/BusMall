@@ -1,13 +1,13 @@
-'use strict';
-
+'use strict'
 function Product(name ,source){
     this.name = name;
     this.source = source;
     this.vote = 0;
     this.view = 0;
     Product.prototype.allProduct.push(this);
+    productsName.push(name);
   }
-
+  var productsName=[];
   Product.prototype.allProduct=[];
 
 new Product('bag','img/bag.jpg');
@@ -37,6 +37,9 @@ function randNumGenerator() {
 
 }
 
+var perviousLeftImageIndex= -1;
+var perviousRightImageIndex=-1;
+var perviousMiddleImageIndex=-1;
 var leftImg = document.getElementById('LeftProduct');
 var MidImg = document.getElementById('MiddleProduct');
 var rightImg = document.getElementById('RightProducte');
@@ -47,22 +50,40 @@ var userInput=document.getElementById('form')
 var leftImgIndex;
 var MidImgIndex;
 var rightImgIndex;
-var maxClick=25;
+var maxClick= 25;
 var userClickCounter=0;
-;
 
 
 function renderThreeRandImg() {
-    leftImgIndex = randNumGenerator();
+    var forbiddenIndex=[perviousLeftImageIndex,perviousRightImageIndex,perviousMiddleImageIndex]
+    do{
+        leftImgIndex = randNumGenerator();
+        rightImgIndex = randNumGenerator();
+        MidImgIndex = randNumGenerator();
+    } while (leftImgIndex===rightImgIndex ||leftImgIndex===MidImgIndex||MidImgIndex===rightImgIndex);
+    
    
 do{
+    leftImgIndex = randNumGenerator();
+    
+} while (forbiddenIndex.includes(leftImgIndex));
+  perviousLeftImageIndex=leftImgIndex;
+    forbiddenIndex.push(leftImgIndex);
+do{
     rightImgIndex = randNumGenerator();
-    MidImgIndex = randNumGenerator();
-} while (leftImgIndex===rightImgIndex ||leftImgIndex===MidImgIndex||MidImgIndex===rightImgIndex);
-console.log('product',Product.prototype.allProduct);
-console.log('leftImg',leftImgIndex)
-leftImg.src=Product.prototype.allProduct[leftImgIndex].source;
 
+}while (forbiddenIndex.includes(rightImgIndex)) ;
+perviousRightImageIndex=rightImgIndex;
+   forbiddenIndex.push(leftImgIndex);
+
+do{
+    MidImgIndex = randNumGenerator();
+}while ( forbiddenIndex.includes( MidImgIndex));
+perviousMiddleImageIndex= MidImgIndex
+// forbiddenIndex.push(MidImgIndex);
+
+  
+leftImg.src=Product.prototype.allProduct[leftImgIndex].source;
 Product.prototype.allProduct[leftImgIndex].view++
 MidImg.src=Product.prototype.allProduct[MidImgIndex].source;
 Product.prototype.allProduct[MidImgIndex].view++
@@ -78,7 +99,7 @@ userInput.addEventListener('submit',numOfRound);
 function clickByUser(event) {
 
     userClickCounter++;
-    if(userClickCounter<=maxClick){
+    if(userClickCounter <= maxClick){
         if(event.target.id==='LeftProduct'){
             userClickCounter++;
             Product.prototype.allProduct[leftImgIndex].vote++;
@@ -109,10 +130,68 @@ var resultList=document.getElementById('final-results');
         resultList.appendChild(lastResult);
     }
 
-    
+    showChart();
 }
 
 function numOfRound(event) {
     event.preventDefault();
     maxClick=event.target.rounds.value;
 }
+
+    
+    function showChart() {
+        var votesArray=[];
+        var viewArray=[];
+
+        for (var i = 0; i < Product.prototype.allProduct.length; i++) {
+            votesArray.push(Product.prototype.allProduct[i].vote);
+            viewArray.push(Product.prototype.allProduct[i].view);
+    
+        }
+    
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+    
+    
+        
+            data: {
+                labels: productsName,
+                datasets: [{
+                    label: 'votes',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: votesArray,
+                    
+    
+    
+                },
+                {
+                    label: 'Your view',
+                    backgroundColor: 'rgb(0, 0, 0)',
+                    borderColor: 'rgb(0, 0, 0)',
+                    data: viewArray,
+                }
+            ]
+            },
+    
+            // Configuration options go here
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            max: 10,
+                            min: 0,
+                            beginAtZero: 0,
+                            stepSize: 1,
+                        }
+                    }],
+    
+                }
+            }
+        });
+       
+    
+    
+    }
+    
