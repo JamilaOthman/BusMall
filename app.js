@@ -1,4 +1,5 @@
 'use strict'
+//Object Constructor for creating product objects
 function Product(name ,source) {
     this.name = name;
     this.source = source;
@@ -10,6 +11,7 @@ function Product(name ,source) {
   var productsName=[];
   Product.prototype.allProduct=[];
 
+//Create instances
 new Product('bag','img/bag.jpg');
 new Product('banana','img/banana.jpg');
 new Product('bathroom','img/bathroom.jpg');
@@ -30,15 +32,19 @@ new Product('usb','img/usb.gif');
 new Product('water-can','img/water-can.jpg');
 new Product('wine-glass','img/wine-glass.jpg');
 
+//Generates a random integer
+
 function randNumGenerator() {
     return  Math.floor(Math.random()*Product.prototype.allProduct.length);
 
 
 }
 
+//Declare global variable
 var perviousLeftImageIndex= -1;
 var perviousRightImageIndex=-1;
 var perviousMiddleImageIndex=-1;
+//Assigning variable names to each product displayed
 var leftImg = document.getElementById('LeftProduct');
 var MidImg = document.getElementById('MiddleProduct');
 var rightImg = document.getElementById('RightProducte');
@@ -53,6 +59,7 @@ var maxClick= 25;
 var userClickCounter=0;
 var names = [];
 
+//Function to create a set of 3 different images on the screen and log how many times the image displayed
 
 
 function renderThreeRandImg() {
@@ -81,7 +88,6 @@ do{
     MidImgIndex = randNumGenerator();
 }while ( forbiddenIndex.includes( MidImgIndex));
 perviousMiddleImageIndex= MidImgIndex
-// forbiddenIndex.push(MidImgIndex);
 
   
 leftImg.src=Product.prototype.allProduct[leftImgIndex].source;
@@ -98,10 +104,12 @@ Product.prototype.allProduct[rightImgIndex].view++
 }
 renderThreeRandImg();
 
+//Create an event listener that responds to the click on an image
 productbox.addEventListener('click',clickByUser);
 showResultButton.addEventListener('click',showResult);
 userInput.addEventListener('submit',numOfRound);
 
+// Creating a function to handle click each image
 
 function clickByUser(event) {
     userClickCounter++;
@@ -125,10 +133,10 @@ function clickByUser(event) {
     productbox.removeEventListener('click',clickByUser);
     showResultButton.disabled=false;
     }
-    productStorage () ;
+}
+}
+//Function to Show Result
 
-}
-}
 function showResult() {
 var resultList=document.getElementById('final-results');
     var lastResult;
@@ -147,7 +155,8 @@ function numOfRound(event) {
     maxClick=event.target.rounds.value;
 }
 
-    
+    //Function to generate chart
+
     function showChart() {
         var votesArray=[];
         var viewArray=[];
@@ -206,12 +215,14 @@ function numOfRound(event) {
         names.push(Product.prototype.allProduct[i].name);
     }
     
-    
+    // Local Storage 
+
     function productStorage (){
         var localStorage =JSON.stringify(Product.prototype.allProduct);
         localStorage.setItem('product',localProduct);
     }
     
+    productStorage ();
 
     function getTheData (){
         var ProductList =localStorage.getItem('product');
@@ -221,9 +232,6 @@ function numOfRound(event) {
         Products.prototype.allProducts = jsProductList ;
     
         console.log(jsProductList);
-        productStorage () ;
-
     }
     getTheData();
-    
     
