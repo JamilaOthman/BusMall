@@ -125,6 +125,8 @@ function clickByUser(event) {
     productbox.removeEventListener('click',clickByUser);
     showResultButton.disabled=false;
     }
+    productStorage () ;
+
 }
 }
 function showResult() {
@@ -219,6 +221,8 @@ function numOfRound(event) {
         Products.prototype.allProducts = jsProductList ;
     
         console.log(jsProductList);
+        productStorage () ;
+
     }
     getTheData();
     
